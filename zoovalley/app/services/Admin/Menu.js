@@ -28,10 +28,10 @@ export class Menu extends Component {
                     <TouchableOpacity onPress={() => navigate('Auto', { name: 'user' })}>
                         <Image source={require('../Image/button.png')} style={style.btnimg}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity  onPress={() => navigate('Take', { name: 'user' })}>
-                        <Image source={require('../Image/buttonim.png')} style={style.btnimg}></Image>
+                    <TouchableOpacity onPress={() => navigate('Take', { name: 'user' })}>
+                        <Image source={require('../Image/buttonca.png')} style={style.btnimg}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity  onPress={() => navigate('Album', { name: 'user' })} >
+                    <TouchableOpacity onPress={() => navigate('Album', { name: 'user' })} >
                         <Image source={require('../Image/buttonal.png')} style={style.btnimg}></Image>
                     </TouchableOpacity>
                 </View>
@@ -54,3 +54,4 @@ const AppStackNavigator = createStackNavigator({
     })
 const AppContainer = createAppContainer(AppStackNavigator);
 export default AppContainer;
+

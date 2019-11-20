@@ -119,7 +119,7 @@ export default class TakePhoto extends React.Component {
                 <View style={styles.container}>
 
                     <View style={style.justContain}>
-                        <Image source={require('../Image/zoo4.png')} style={styles.logo}></Image>
+                        <Image source={require('../Image/takepic1.png')} style={styles.logo}></Image>
                         <Text style={styles.menubtn}><Text> TAKE PICTURE </Text></Text>
                     </View>
                     <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -163,7 +163,7 @@ export default class TakePhoto extends React.Component {
 }
 const styles = StyleSheet.create({
     container: {
-        margin: 30,
+        margin: '7%',
         flex: 1,
         alignItems: 'center',
     },
@@ -194,9 +194,9 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans_Light'
     },
     dataButton: {
-        marginTop: 10,
+        marginTop: '3%',
         width: '100%',
-        height: 60,
+        height: '9%',
         backgroundColor: '#2DCD87',
         borderRadius: 6,
         justifyContent: 'center',
@@ -208,9 +208,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     dataDefault: {
-        marginTop: 10,
+        marginTop: '3%',
         width: '100%',
-        height: 60,
+        height: '9%',
         backgroundColor: '#636465',
         borderRadius: 6,
         justifyContent: 'center',
@@ -223,8 +223,8 @@ const styles = StyleSheet.create({
         color:'#A5A6A7'
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: '40%',
+        height: '120%',
         resizeMode: 'stretch'
     },
     fontTitle: {

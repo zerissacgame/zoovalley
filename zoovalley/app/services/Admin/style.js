@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View} from 'react-native'
 const styles = StyleSheet.create({
     container: {
-        margin: 40,
+        margin: '10%',
         flex: 1,
         alignItems: 'center',
         textAlign: 'center',
@@ -66,15 +66,15 @@ const styles = StyleSheet.create({
         height: 100,
     },
     btnimg:{
-        marginTop: 10,
+        marginTop: '7%',
         width: 420,
         height: 100,
         //resizeMode: 'stretch',
         justifyContent: 'center',
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: '38%',
+        height: '110%',
         resizeMode: 'stretch'
     },
 })
