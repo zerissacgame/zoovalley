@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Alert, StatusBar, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
 import CameraRoll from "@react-native-community/cameraroll";
-
-export default class AutoChatBot extends Component {
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import DeviceInfo, { getUniqueId } from 'react-native-device-info';
+const uid = DeviceInfo.getUniqueId();
+export default class PhotoAlbum extends Component {
     static navigationOptions = {
         header: null,
     }
     state = {
-        selected: '',
+        //selected: '',
         photos: [],
-        showSelectedPhoto: false,
-        uri: ''
+        isdisabled: true, bgColor: false,
+        fileName: ''
     };
-
+    bgColor1(bgColor) {
+        console.log("bgColor:",bgColor)
+        if(this.state.bgColor==true){
+            return styles.dataButton;
+        }
+        else{
+            return styles.dataDefault;
+        }
+    }
     componentDidMount() {
 
         CameraRoll.getPhotos({
@@ -28,13 +38,16 @@ export default class AutoChatBot extends Component {
             .catch((err) => {
                 //Error Loading Images
             });
+
     };
-    UploadPhoto() {
-        const url = "https://zoochatbotpython.appspot.com/upload"    
+    UploadPhoto(selecteduri,filename) {
+        const url = "https://zoochatbotpython.appspot.com/upload";  
+        //console.log('hi:', this.state.selected);
         const image = {
-            uri: this.state.photo.uri,
+            uri: selecteduri,
             type: 'image/jpeg',
-            name: this.state.photo.fileName
+            name: filename
+            //name: '123456'
         }
         const imgBody = new FormData();
         imgBody.append('file', image);
@@ -49,74 +62,62 @@ export default class AutoChatBot extends Component {
             },
             body: imgBody
         })
-            .then(response => {
+        .then((response) => {
                 console.log('response upload', response);
-                this.postId(image);
                 alert("upload successful")
+                this.setState({ isdisabled: false, bgColor: true });
+                this.setState({ selected: null });
             })
-            .catch(error => {
+        .catch(error => {
                 console.error(error);
                 alert("upload failed")
-                this.setState({ photo: null });
+                
             });
+        
     }
-    selectImage(uri) {
+
+     selectImage(uri, filename) {
         // define whatever you want to happen when an image is selected here
-        this.setState({
+         /*this.setState({
             selected: uri,
-           // showSelectedPhoto: true,
-            uri: uri
-        });
-        this.UploadPhoto();
-        console.log('Selected image: ', uri);
+            fileName: filename
+            // showSelectedPhoto: true,
+
+        });*/
+        console.log('Selected image: ', this.state.selected);
+        console.log('uri: ', uri);
+        console.log('filename:', filename)
+        this.UploadPhoto(uri,filename);
     }
     render() {
         const { navigate } = this.props.navigation;
-    /*    const { showSelectedPhoto, uri } = this.state;
-        if (showSelectedPhoto) {
-            /*this.props.navigation.navigate('SelectedPhoto',{ name: 'user' })
-            const {uri}=this.state.uri;
-           return (
-                <View>
-                    <SelectedPhoto
-                        uri={uri}
-                         />
-                    
-                </View>
-           )
-        }*/
         return (
 
             <ImageBackground source={require('../Image/background.png')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <View style={styles.justContain}>
                         <Image source={require('../Image/album1.png')} style={styles.logo}></Image>
-                        <Text style={styles.menubtn}><Text> ZOO ALBUM </Text></Text>
+                        <Text style={styles.menubtn}><Text> ALBUM </Text></Text>
 
                     </View>
-
-                    <ScrollView><View style={styles.imageList}>
-
+                    <ScrollView><View style={styles.imageList}> {/* เป็นการแสดงข้อมูลรูปภาพแบบเป็น 2 รูปภาพต่อ 1 แถว*/}
                         {this.state.photos.map((p, i) => {
-
                             return (
-
-                                <TouchableOpacity key={i} onPress={() => navigate('Data', { name: 'user' })} >
-
+                                <TouchableOpacity key={i}
+                                    onPress={() => this.selectImage(p.node.image.uri, p.node.image.filename)}> {/* สามารถกดที่รูปจะทำการ upload แล้วสามารถเรียกดูข้อมูลัตว์อีกรอบได้*/}
                                     <Image
                                         key={i}
                                         style={styles.imageSelect}
                                         source={{ uri: p.node.image.uri }}
 
                                     /></TouchableOpacity>
-
                             );
-
-                        })}
-
+                        })}  
                     </View>
                     </ScrollView>
-
+                    <TouchableOpacity disabled={this.state.isdisabled} onPress={() => navigate('Data', { name: 'user' })} style={this.bgColor1()}>
+                        <Text style={styles.fontTitle}>View Information</Text>
+                    </TouchableOpacity>
                 </View>
 
             </ImageBackground>
@@ -124,19 +125,14 @@ export default class AutoChatBot extends Component {
     }
 }
 const styles = StyleSheet.create({
-    fontS: {
-        justifyContent: 'center',
-        fontSize: 20,
-        fontFamily: 'AbrilFatface'
-    },
     container: {
-        margin: 30,
+        margin: '7%',
         flex: 1,
         alignItems: 'center',
         textAlign: 'center',
     },
     justContain: {
-        height: 100,
+        height: hp('15%'),
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -144,20 +140,20 @@ const styles = StyleSheet.create({
     },
     menubtn: {
         margin: '7%',
-        width: '60%',
-        height: 80,
+        width: wp('50%'),
+        height: hp('12%'),
         backgroundColor: 'white',
         borderRadius: 6,
         justifyContent: 'center',
         padding: 3,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 40,
+        fontSize: wp('10%'),
         fontFamily: 'OpenSans_Light'
     },
     logo: {
-        width: '38%',
-        height: '120%',
+        width: wp('30%'),
+        height: hp('18%'),
         resizeMode: 'stretch'
     },
     backgroundImage: {
@@ -166,8 +162,8 @@ const styles = StyleSheet.create({
     },
     imageSelect: {
         margin: '3%',
-        width: 130,
-        height: 150,
+        width: wp('35%'),
+        height: hp('20%'),
     },
     imageList: {
         //margin: '2%',
@@ -176,21 +172,37 @@ const styles = StyleSheet.create({
 
     },
     dataButton: {
-        marginTop: 10,
-        width: '100%',
-        height: 60,
+        marginTop: '3%',
+        width: wp('85%'),
+        height: hp('8%'),
         backgroundColor: '#2DCD87',
         borderRadius: 6,
         justifyContent: 'center',
         padding: 3,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 45,
+        fontSize: hp('4%'),
         fontFamily: 'OpenSans_Light',
         alignItems: 'center'
+    },
+    dataDefault: {
+        marginTop: '3%',
+        width: wp('85%'),
+        height: hp('8%'),
+        backgroundColor: '#636465',
+        borderRadius: 6,
+        justifyContent: 'center',
+        padding: 3,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: hp('4%'),
+        fontFamily: 'OpenSans_Light',
+        alignItems: 'center',
+        color:'#A5A6A7'
     },
     fontTitle: {
         color: 'white',
         fontFamily: 'OpenSans_Bold',
+        fontSize: hp('4%')
     }
 })

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View} from 'react-native'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 const styles = StyleSheet.create({
     container: {
         margin: '10%',
@@ -42,15 +43,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     menubtn: {
-        margin: 10,
-        width: '60%',
-        height: 115,
+        margin: '2%',
+        width: wp('45%'),
+        height: hp('15%'),
         backgroundColor: 'white',
         borderRadius: 10,
         justifyContent: 'center',
         paddingLeft:10,
         fontFamily:'OpenSans_Bold',
-        fontSize:14,
+        fontSize:hp('1.7%'),
     },
     btnmenu: {
         margin: 20,
@@ -67,14 +68,14 @@ const styles = StyleSheet.create({
     },
     btnimg:{
         marginTop: '7%',
-        width: 420,
-        height: 100,
+        width: wp('100%'),
+        height: hp('14%'),
         //resizeMode: 'stretch',
         justifyContent: 'center',
     },
     logo: {
-        width: '38%',
-        height: '110%',
+        width: wp('30%'),
+        height: hp('16%'),
         resizeMode: 'stretch'
     },
 })

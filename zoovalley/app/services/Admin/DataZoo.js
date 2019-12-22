@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet, Text, View, StatusBar, TouchableOpacity, ImageB
 import axios from 'axios';
 import DeviceInfo, { getUniqueId } from 'react-native-device-info';
 import ImageZoom from 'react-native-image-pan-zoom';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 const uid = DeviceInfo.getUniqueId();
 export default class DataZoo extends Component {
     static navigationOptions = {
@@ -83,23 +84,20 @@ export default class DataZoo extends Component {
         //return animalInfo;
     }
     render() {
-        return (
-            <ImageBackground source={require('../Image/background.png')} style={styles.backgroundImage}>
-                <ImageZoom style={styles.dataGet} //cropWidth={'125%'}
-                    //cropHeight={'100%'}
-                    //imageWidth={'70%'}
-                    //imageHeight={'100%'}
+        return ( 
+            <ImageBackground source={require('../Image/background.png')} style={styles.backgroundImage}>{/* เป็นหน้าสำหรับการแสดงข้อมูลของสัตว์ต่างๆ*/}
+                <ImageZoom 
                     cropWidth={Dimensions.get('window').width}
                     cropHeight={Dimensions.get('window').height}
                     imageWidth={Dimensions.get('window').width}
                     imageHeight={Dimensions.get('window').height * 9 / 10}
-                >
+                >{/* เป็นฟังก์ชันสำหรับการขยายรูปภาพ*/}
                     <Image source={{ uri: this.state.info }} style={{
                         //width: '70%',
                         //height: '100%' ,
                         // marginLeft: 10
-                        width: Dimensions.get('window').width,
-                        height: Dimensions.get('window').height * 9 / 10
+                        width: wp('100%'),
+                        height: hp('90%')
                         //width: Dimensions.get('window').width,
                         //height: Dimensions.get('window').height - 100
                     }}></Image>

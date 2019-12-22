@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Animated, Image, StatusBar } from 'react-native'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 export default class Splash extends Component {
     constructor(props){
         super(props)
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',*/
     },
     logo:{
-        width: 350,
-        height: 350,
+        width: wp('85%'),
+        height: hp('50%'),
         resizeMode: 'stretch',
     },
     viewset:{

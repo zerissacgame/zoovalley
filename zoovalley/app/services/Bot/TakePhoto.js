@@ -5,6 +5,7 @@ import style from '../Admin/style'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import axios from 'axios';
 import DeviceInfo, { getUniqueId } from 'react-native-device-info';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const uid = DeviceInfo.getUniqueId();
 // More info on all the options is below in the API Reference... just some common use cases shown here
@@ -23,7 +24,7 @@ export default class TakePhoto extends React.Component {
         this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
         this.state = { showAlert: true, avatarSource: null, photo: null, isdisabled:true, bgColor:false};
     }
-    bgColor1(bgColor) {
+    bgColor1(bgColor) { //เป็นการแสดงปุ่มของการแสดงข้อมูล โดยถ้าหากยังไม่ทำการอัพโหลดข้อมูล ตัว stage จะแสดงปุ่มเป็นสีเทา ถ้าหากอัพโหลดแล้วจะเป็น สีเขียว
         console.log("bgColor:",bgColor)
         if(this.state.bgColor==true){
             return styles.dataButton;
@@ -163,7 +164,7 @@ export default class TakePhoto extends React.Component {
 }
 const styles = StyleSheet.create({
     container: {
-        margin: '7%',
+        margin: hp('4%'),
         flex: 1,
         alignItems: 'center',
     },
@@ -175,64 +176,64 @@ const styles = StyleSheet.create({
     },
     avatar: {
         //borderRadius: 75,
-        width: 350,
-        height: 400,
+        width: wp('85%'),
+        height: hp('55%'),
         backgroundColor: '#E8ECF0',
         //opacity: 0.9,
     },
     menubtn: {
         marginLeft: 20,
-        width: '65%',
-        height: 80,
+        width: wp('50%'),
+        height: hp('13%'),
         backgroundColor: 'white',
         borderRadius: 6,
         justifyContent: 'center',
         padding: 3,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 40,
+        fontSize: hp('4.7%'),
         fontFamily: 'OpenSans_Light'
     },
     dataButton: {
         marginTop: '3%',
-        width: '100%',
-        height: '9%',
+        width: wp('85%'),
+        height: hp('8%'),
         backgroundColor: '#2DCD87',
         borderRadius: 6,
         justifyContent: 'center',
         padding: 3,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 45,
+        fontSize: hp('4%'),
         fontFamily: 'OpenSans_Light',
         alignItems: 'center'
     },
     dataDefault: {
         marginTop: '3%',
-        width: '100%',
-        height: '9%',
+        width: wp('85%'),
+        height: hp('8%'),
         backgroundColor: '#636465',
         borderRadius: 6,
         justifyContent: 'center',
         padding: 3,
         textAlign: 'center',
         textAlignVertical: 'center',
-        fontSize: 45,
+        fontSize: hp('4%'),
         fontFamily: 'OpenSans_Light',
         alignItems: 'center',
         color:'#A5A6A7'
     },
     logo: {
-        width: '40%',
-        height: '120%',
+        width: wp('35%'),
+        height: hp('20%'),
         resizeMode: 'stretch'
     },
     fontTitle: {
         color: 'white',
         fontFamily: 'OpenSans_Bold',
-        fontSize: 30
+        fontSize: hp('4%')
     },
     styleIm:{
-        fontSize:20,
+        fontSize:hp('2.5%'),
     }
 });
